@@ -1,6 +1,15 @@
+/*
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-08-26 00:49:22
+ * @LastEditTime: 2020-08-27 18:40:22
+ * @LastEditors: aiyoudiao
+ * @FilePath: \code\src\settings.js
+ */
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: '可视化管理系统',
 
   /**
    * @type {boolean} true | false
@@ -12,5 +21,5 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether show the logo in sidebar
    */
-  sidebarLogo: false
+  sidebarLogo: true
 }

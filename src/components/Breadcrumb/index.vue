@@ -1,3 +1,12 @@
+<!--
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-08-26 00:49:22
+ * @LastEditTime: 2020-08-26 17:06:03
+ * @LastEditors: aiyoudiao
+ * @FilePath: \code\src\components\Breadcrumb\index.vue
+-->
 <template>
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
@@ -29,12 +38,13 @@ export default {
   methods: {
     getBreadcrumb() {
       // only show routes with meta.title
-      let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
-      const first = matched[0]
+      const matched = this.$route.matched.filter(item => item.meta && item.meta.title)
+      // const first = matched[0]
 
-      if (!this.isDashboard(first)) {
+      // NOTE: 不去强制给它添加仪表板前缀
+      /*      if (!this.isDashboard(first)) {
         matched = [{ path: '/dashboard', meta: { title: 'Dashboard' }}].concat(matched)
-      }
+      } */
 
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     },

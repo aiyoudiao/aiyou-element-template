@@ -1,3 +1,12 @@
+<!--
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-08-26 00:49:22
+ * @LastEditTime: 2020-08-27 17:02:41
+ * @LastEditors: aiyoudiao
+ * @FilePath: \code\src\layout\components\Sidebar\Logo.vue
+-->
 <template>
   <div class="sidebar-logo-container" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
@@ -14,6 +23,8 @@
 </template>
 
 <script>
+import LogoJPG from '../../../assets/imgs/user-20200719pm1436-zph.jpg'
+
 export default {
   name: 'SidebarLogo',
   props: {
@@ -24,8 +35,8 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Admin Template',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: '可视化管理系统',
+      logo: LogoJPG// 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
     }
   }
 }
@@ -58,7 +69,8 @@ export default {
       width: 32px;
       height: 32px;
       vertical-align: middle;
-      margin-right: 12px;
+      margin-right: 7px;
+      border-radius: 10px;
     }
 
     & .sidebar-title {

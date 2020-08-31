@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-08-26 00:49:22
+ * @LastEditTime: 2020-08-29 19:09:48
+ * @LastEditors: aiyoudiao
+ * @FilePath: \code\src\main.js
+ */
 import Vue from 'vue'
 
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
@@ -15,6 +24,15 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import VeLine from 'v-charts/lib/line.common'
+import dataV from '@jiaminghi/data-view'
+Vue.use(dataV)
+/* import { scrollBoard, loading, fullScreenContainer } from '@jiaminghi/data-view'
+Vue.use(scrollBoard)
+Vue.use(loading)
+Vue.use(fullScreenContainer) */
+Vue.component(VeLine.name, VeLine)
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -29,9 +47,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, { locale })
+// Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 

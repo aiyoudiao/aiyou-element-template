@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-08-26 00:49:22
+ * @LastEditTime: 2020-08-26 02:02:30
+ * @LastEditors: aiyoudiao
+ * @FilePath: \code\src\store\modules\permission.js
+ */
 import { asyncRoutes, constantRoutes } from '@/router'
 
 /**
@@ -41,6 +50,9 @@ const state = {
 
 const mutations = {
   SET_ROUTES: (state, routes) => {
+    // debugger;
+    /*  console.log("state", state)
+     console.log("routes", routes) */
     state.addRoutes = routes
     state.routes = constantRoutes.concat(routes)
   }
@@ -48,6 +60,8 @@ const mutations = {
 
 const actions = {
   generateRoutes({ commit }, roles) {
+    // debugger;
+
     return new Promise(resolve => {
       let accessedRoutes
       if (roles.includes('admin')) {

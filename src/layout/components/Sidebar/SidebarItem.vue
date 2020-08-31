@@ -70,6 +70,11 @@ export default {
 
       // When there is only one child router, the child router is displayed by default
       if (showingChildren.length === 1) {
+        /* 子节点数量为1时也不置顶 */
+        if (showingChildren[0].notTop === true) {
+          return false
+        }
+
         return true
       }
 

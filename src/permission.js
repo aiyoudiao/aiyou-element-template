@@ -1,3 +1,12 @@
+/*
+ * @Descripttion: aiyoudiao
+ * @version: 1.0.0
+ * @Author: aiyoudiao
+ * @Date: 2020-08-26 00:49:22
+ * @LastEditTime: 2020-08-26 01:37:25
+ * @LastEditors: aiyoudiao
+ * @FilePath: \code\src\permission.js
+ */
 import router from './router'
 import store from './store'
 import { Message } from 'element-ui'
@@ -38,7 +47,7 @@ router.beforeEach(async(to, from, next) => {
 
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
-
+          // debugger;
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
 
