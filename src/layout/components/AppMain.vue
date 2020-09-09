@@ -27,7 +27,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .el-date-picker {
   .el-input__inner {
     color: #3a3a3a;
@@ -75,7 +74,7 @@ export default {
   }
 }
 
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 

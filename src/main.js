@@ -13,7 +13,7 @@ import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/en' // lang i18n
+// import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import '@/styles/index.scss' // global css
 
@@ -26,6 +26,10 @@ import '@/permission' // permission control
 
 import VeLine from 'v-charts/lib/line.common'
 import dataV from '@jiaminghi/data-view'
+import vueParticles from 'vue-particles'
+
+Vue.use(vueParticles)
+
 Vue.use(dataV)
 /* import { scrollBoard, loading, fullScreenContainer } from '@jiaminghi/data-view'
 Vue.use(scrollBoard)

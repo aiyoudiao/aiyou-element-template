@@ -1,237 +1,292 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-
-      <div class="title-container">
-        <h3 class="title">Login Form</h3>
+    <div class="layer">
+      <div class="some-space">
+        <div class="form">
+          <h2>{{ title }}</h2>
+          <div class="item">
+            <i class="iconfont icon-user" />
+            <input
+              v-model="username"
+              autocomplete="off"
+              type="text"
+              class="input"
+              placeholder="请输入用户名"
+            >
+          </div>
+          <div class="item">
+            <i class="iconfont icon-password" />
+            <input
+              v-model="password"
+              autocomplete="off"
+              type="password"
+              class="input"
+              maxlength="20"
+              placeholder="请输入密码"
+              @keyup.enter="login"
+            >
+          </div>
+          <button class="loginBtn" :disabled="isLoginAble" @click.stop="login">
+            立即登录
+          </button>
+          <div class="tip">默认用户名：admin ，默认密码：123456</div>
+        </div>
       </div>
+    </div>
 
-      <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
+    <vue-particles
+      color="#6495ED"
+      :particle-opacity="0.7"
+      :particles-number="80"
+      shape-type="circle"
+      :particle-size="4"
+      lines-color="#6495ED"
+      :lines-width="1"
+      :line-linked="true"
+      :line-opacity="0.6"
+      :lines-distance="150"
+      :move-speed="3"
+      :hover-effect="true"
+      hover-mode="grab"
+      :click-effect="true"
+      click-mode="push"
+    />
 
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-        </span>
-      </el-form-item>
+    <bg-animation></bg-animation>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
-
-    </el-form>
   </div>
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import BgAnimation from '@/zph-components/bgAnimation'
+import { SYSTEM_TITLE_ZHCN } from '@/constant/system'
 
 export default {
   name: 'Login',
+  components: {
+    BgAnimation
+  },
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
-    }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
     return {
-      loginForm: {
-        username: 'admin',
-        password: '111111'
-      },
-      loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
-      },
-      loading: false,
-      passwordType: 'password',
-      redirect: undefined
+      title: SYSTEM_TITLE_ZHCN,
+      username: 'admin',
+      password: '123456'
     }
   },
-  watch: {
-    $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
-      },
-      immediate: true
+  computed: {
+    isLoginAble() {
+      return !(this.username && this.password)
     }
+  },
+  created() {},
+  mounted() {
+    // this.visible = true
   },
   methods: {
-    showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+    login() {
+      if (this.username === 'admin' && this.password === '123456') {
+        this.$router.push({
+          path: '/home'
+        })
+        this.loading = true
+        this.$store.dispatch('user/login', {
+          username: this.username,
+          password: this.password
+        }).then(() => {
+          this.$router.push({ path: this.redirect || '/' })
+          this.loading = false
+        }).catch(() => {
+          this.loading = false
+        })
       } else {
-        this.passwordType = 'password'
+        this.$Toast({
+          content: '请输入正确的用户名和密码',
+          type: 'error'
+          // hasClose: true
+        })
       }
-      this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
-    },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
     }
   }
 }
 </script>
 
-<style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
-
-$bg:#283443;
-$light_gray:#fff;
-$cursor: #fff;
-
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
-    color: $cursor;
-  }
-}
-
-/* reset element-ui css */
-.login-container {
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 85%;
-
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 47px;
-      caret-color: $cursor;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
-    }
-  }
-
-  .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    color: #454545;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
-
 .login-container {
-  min-height: 100%;
-  width: 100%;
-  background-color: $bg;
-  overflow: hidden;
-
-  .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+  .layer {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  #particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
     overflow: hidden;
   }
+  .some-space {
+    color: white;
+    font-weight: 100;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1001;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
 
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
+    -ms-animation: cloud 2s 3s ease-in infinite alternate;
+    -moz-animation: cloud 2s 3s ease-in infinite alternate;
+    -webkit-animation: cloud 2s 3s ease-in infinite alternate;
+    -o-animation: cloud 2s 3s ease-in infinite alternate;
+    -webkit-animation: cloud 2s 3s ease-in infinite alternate;
+    animation: cloud 2s 3s ease-in infinite alternate;
 
-    span {
-      &:first-of-type {
-        margin-right: 16px;
+    .form {
+      width: 460px;
+      height: auto;
+      background: rgba(36, 36, 85, 0.5);
+      margin: 0 auto;
+      padding: 35px 30px 25px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+      .item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #d3d7f7;
+        i {
+          color: #d3d7f7;
+          margin-right: 10px;
+        }
+      }
+      h2 {
+        text-align: center;
+        font-weight: normal;
+        font-size: 26px;
+        color: #d3d7f7;
+        padding-bottom: 35px;
+      }
+      .input {
+        font-size: 16px;
+        line-height: 30px;
+        width: 100%;
+        color: #d3d7f7;
+        outline: none;
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        padding: 10px 0;
+      }
+      .loginBtn {
+        width: 100%;
+        padding: 12px 0;
+        border: 1px solid #d3d7f7;
+        font-size: 16px;
+        color: #d3d7f7;
+        cursor: pointer;
+        background: transparent;
+        border-radius: 4px;
+        margin-top: 10px;
+        &:hover {
+          color: #fff;
+          background: #0090ff;
+          border-color: #0090ff;
+        }
+      }
+      .tip {
+        font-size: 12px;
+        padding-top: 20px;
       }
     }
   }
+}
 
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
+input::-webkit-input-placeholder {
+  color: #d3d7f7;
+}
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #d3d7f7;
+}
+input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #d3d7f7;
+}
+input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #d3d7f7;
+}
+
+@-ms-keyframes cloud {
+  0% {
+    -ms-transform: translate(-50%, -50%);
   }
-
-  .title-container {
-    position: relative;
-
-    .title {
-      font-size: 26px;
-      color: $light_gray;
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-weight: bold;
-    }
+  40% {
+    opacity: 1;
   }
-
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: $dark_gray;
-    cursor: pointer;
-    user-select: none;
+  60% {
+    opacity: 1;
+  }
+  100% {
+    -ms-transform: translate(-50%, -40%);
+  }
+}
+@-moz-keyframes cloud {
+  0% {
+    -moz-transform: translate(-50%, -50%);
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    -moz-transform: translate(-50%, -40%);
+  }
+}
+@-o-keyframes cloud {
+  0% {
+    -o-transform: translate(-50%, -50%);
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    -o-transform: translate(-50%, -40%);
+  }
+}
+@-webkit-keyframes cloud {
+  0% {
+    -webkit-transform: translate(-50%, -50%);
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -40%);
+  }
+}
+@keyframes cloud {
+  0% {
+    transform: translate(-50%, -50%);
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -40%);
   }
 }
 </style>

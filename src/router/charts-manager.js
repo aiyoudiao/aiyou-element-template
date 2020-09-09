@@ -18,7 +18,10 @@ import {
   CHARTS_MANAGER_ZHCN,
   CHARTS_MANAGER_INDEX,
   CHARTS_MANAGER_INDEX_PATH,
-  CHARTS_MANAGER_INDEX_ZHCN
+  CHARTS_MANAGER_INDEX_ZHCN,
+  CHARTS_MANAGER_DETAIL,
+  CHARTS_MANAGER_DETAIL_PATH,
+  CHARTS_MANAGER_DETAIL_ZHCN
 } from '@/constant/charts-manager'
 
 export default (Layout) => ({
@@ -41,6 +44,16 @@ export default (Layout) => ({
       notTop: true, /* 当子节点为1时也不置顶 */
       // component: () => import('../views/charts-manager/big-screen/index.vue'),
       component: () => import('@/views/charts-manager/cell-phone/index.vue')
+    },
+    {
+      path: CHARTS_MANAGER_DETAIL_PATH,
+      name: CHARTS_MANAGER_DETAIL,
+      meta: {
+        title: CHARTS_MANAGER_DETAIL_ZHCN,
+        icon: ''
+      },
+      notTop: true, /* 当子节点为1时也不置顶 */
+      component: () => import('@/views/charts-manager/cell-phone/detail.vue')
     }
   ]
 })

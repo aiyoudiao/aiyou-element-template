@@ -24,6 +24,7 @@
 
 <script>
 import LogoJPG from '../../../assets/imgs/user-20200719pm1436-zph.jpg'
+import { SYSTEM_TITLE_ZHCN } from '@/constant/system'
 
 export default {
   name: 'SidebarLogo',
@@ -35,7 +36,7 @@ export default {
   },
   data() {
     return {
-      title: '可视化管理系统',
+      title: SYSTEM_TITLE_ZHCN || '可视化管理系统',
       logo: LogoJPG// 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
     }
   }

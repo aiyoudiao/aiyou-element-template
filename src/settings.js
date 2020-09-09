@@ -1,3 +1,5 @@
+// const { SYSTEM_TITLE_ZHCN } = require('@/constant/system')
+
 /*
  * @Descripttion: aiyoudiao
  * @version: 1.0.0
@@ -15,7 +17,7 @@ module.exports = {
    * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: false,
+  fixedHeader: true,
 
   /**
    * @type {boolean} true | false
