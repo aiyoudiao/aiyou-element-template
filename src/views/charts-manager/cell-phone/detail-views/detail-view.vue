@@ -25,6 +25,7 @@
           :label="items"
           :prop="items"
           align="center"
+          :min-width="200"
           :resizable="false"
           :formatter="filterColumnData"
         />
@@ -123,18 +124,21 @@ export default {
         this.pageCount * this.pageIndex,
         this.pageCount * (this.pageIndex + 1)
       )
+
+      // NOTE 翻页，往上一级发送信息
+      this.$emit('checkoutTableData', {})
     },
     handleSelectEvent() {
-      // console.log('this.$refs.listBox.getCheckedNodes()', this.$refs.listBox.getCheckedNodes())
       const data = this.$refs.listBox.getCheckedNodes()
       const value = data.map(item => item.data).filter(item => item.value !== this.abandonedTag)
-      console.log('value', data)
 
-      this.$emit('handleSelectEvent', value)
+      this.columnData = [...[...value].reduce((previous, current) => {
+        previous.push(current.label)
+        return previous
+      }, [])]
     },
     removeTagEvent(tag) {
-      console.log('tag', tag)
-      this.abandonedTag = tag[0]
+      this.abandonedTag = tag
     }
   }
 }
@@ -201,26 +205,15 @@ export default {
   background-color: #fff;
 }
 
-::v-deep .el-table__header::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background-color: #46bab1;
-  left: 0px;
-  bottom: 0px;
-  z-index: 8;
-}
-
 ::v-deep .el-table--enable-row-hover .el-table__body tr:hover > td {
   background-color: inherit !important;
 }
 
 /* 重置表格的滚动条 */
-::v-deep .el-table__body-wrapper::-webkit-scrollbar {
-  width: 11px !important;
-  height: auto !important;
-}
+// ::v-deep .el-table__body-wrapper::-webkit-scrollbar {
+//   width: 11px !important;
+//   height: auto !important;
+// }
 
 /* ===================element table end ==================== */
 
@@ -232,7 +225,7 @@ export default {
   background: transparent;
 }
 
-.table-wrapper {
+.detail-wrapper {
   flex: 1;
   margin-top: 20px;
   padding: 0 5px 5px 5px;
@@ -246,6 +239,19 @@ export default {
   //   height: 385px;
   //   overflow: auto;
   // }
+
+::v-deep .el-table__header::after {
+  content: "";
+  position: absolute;
+  // width: 100%;
+  width: inherit;
+
+  height: 2px;
+  background-color: #46bab1;
+  left: 0px;
+  bottom: 0px;
+  z-index: 8;
+}
 
   ::v-deep .el-table__body-wrapper {
     height: 385px;

@@ -4,15 +4,15 @@
       @changeRadioValue="handleRadioValue"
       @handleSearchForm="handleSearchForm"
     />
-    <table-view @handleCellEvent="handleCellEvent" />
-    <detail-view @handleSelectEvent="handleSelectEvent" />
+    <table-view :table-data="tableData" @handleCellEvent="handleCellEvent" />
+    <detail-view :table-detail-data="tableDetailData" @checkoutTableData="checkoutTableData" />
   </div>
 </template>
 
 <script>
-import NavsView from './detail-view/navs-view.vue'
-import TableView from './detail-view/table-view.vue'
-import DetailView from './detail-view/detail-view.vue'
+import NavsView from './detail-views/navs-view.vue'
+import TableView from './detail-views/table-view.vue'
+import DetailView from './detail-views/detail-view.vue'
 
 export default {
   name: 'CellPhoneDetail',
@@ -21,21 +21,48 @@ export default {
     TableView,
     DetailView
   },
+  data() {
+    return {
+      tableData: [],
+      tableDetailData: []
+    }
+  },
   methods: {
     /* 处理导航条的单选按钮 */
     handleRadioValue(data) {
       console.log('handleRadioValue', data)
+      /* 发送请求，拿到数据，更新tableData和tableDetailData */
     },
     /* 处理表单的搜索提交 */
     handleSearchForm(data) {
       console.log('handleSearchForm', data)
+      /* 发送请求，拿到数据，更新tableData和tableDetailData */
     },
     /* 处理表中每个可点击的单元格 */
     handleCellEvent(data) {
       console.log('handleCellEvent', data)
+      /* 发送请求，拿到数据，更新tableDetailData */
     },
-    handleSelectEvent(data) {
-      console.log('handleSelectEvent', data)
+    /* 处理分页按钮 */
+    checkoutTableData(data) {
+      console.log('checkoutTableData', data)
+      /* 发送请求，拿到数据，更新tableDetailData */
+    },
+    /* 初始化数据 */
+    initPageData() {
+      const tableData = this.getTableData()
+      const tableDetailData = this.getTableDetailData()
+      this.tableData = [...tableData]
+      this.tableDetailData = [...tableDetailData]
+    },
+
+    /* 获取第二排table的数据 */
+    getTableData() {
+
+    },
+    /* 获取第三排table的数据 */
+    getTableDetailData() {
+
     }
   }
 }
