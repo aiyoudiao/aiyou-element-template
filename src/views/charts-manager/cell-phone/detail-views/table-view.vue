@@ -9,17 +9,21 @@
         :highlight-current-row="false"
       >
         <el-table-column
-          v-for="items in columnData"
+          v-for="(items, index) in columnData"
           :key="items"
-          :label="items"
+          :label="index > 0 ? items : ''"
           :prop="items"
           align="center"
           :resizable="false"
+          :width="index === 0 ? 180 : 'auto'"
         >
           <template slot-scope="scope">
-            <el-button type="text" @click="handleCellEvent(scope.row[items])">{{
+            <el-button v-if="index > 0" type="text" @click="handleCellEvent(scope.row[items])">{{
               scope.row[items]
             }}</el-button>
+            <span v-else>
+              {{ scope.row[items] }}
+            </span>
           </template>
         </el-table-column>
       </el-table>
@@ -167,6 +171,46 @@ export default {
     height: 235px;
     overflow-y: auto;
   }
+
+  /* 二维表格首列的斜线 start */
+
+  ::v-deep .el-table th.el-table_1_column_1:first-child {
+    background: #fff;
+  }
+  ::v-deep .el-table th.el-table_1_column_1:first-child:before {
+    content: "类型";
+    text-align: center;
+    position: absolute;
+    width: 50%;
+    top: 0;
+    right: 0;
+    font-weight: 500;
+  }
+
+  ::v-deep .el-table th.el-table_1_column_1:first-child:after {
+    content: "厂商";
+    text-align: center;
+    position: absolute;
+    width: 50%;
+    bottom: 0;
+    left: 0;
+    font-weight: 500;
+  }
+
+  ::v-deep .el-table th.el-table_1_column_1:first-child .cell {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 200%;
+    height: 1px;
+    background-color: #666;
+    display: block;
+    text-align: center;
+    transform: rotate(8deg);
+    transform-origin: top left;
+  }
+
+  /* 二维表格首列的斜线 end */
 
   .el-pagination {
     display: flex;
