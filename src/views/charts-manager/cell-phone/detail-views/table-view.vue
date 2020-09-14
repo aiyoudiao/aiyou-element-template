@@ -12,13 +12,13 @@
           v-for="(items, index) in columnData"
           :key="items"
           :label="index > 0 ? items : ''"
-          :prop="items"
+          :prop="items+'12345'"
           align="center"
           :resizable="false"
           :width="index === 0 ? 180 : 'auto'"
         >
           <template slot-scope="scope">
-            <el-button v-if="index > 0" type="text" @click="handleCellEvent(scope.row[items])">{{
+            <el-button v-if="index > 0" type="text" @click="handleCellEvent([ scope.row[items], scope.row.厂商, scope.column.property])">{{
               scope.row[items]
             }}</el-button>
             <span v-else>
@@ -174,10 +174,10 @@ export default {
 
   /* 二维表格首列的斜线 start */
 
-  ::v-deep .el-table th.el-table_1_column_1:first-child {
+  ::v-deep .el-table .el-table__header th:first-child {
     background: #fff;
   }
-  ::v-deep .el-table th.el-table_1_column_1:first-child:before {
+  ::v-deep .el-table .el-table__header th:first-child:before {
     content: "类型";
     text-align: center;
     position: absolute;
@@ -187,7 +187,7 @@ export default {
     font-weight: 500;
   }
 
-  ::v-deep .el-table th.el-table_1_column_1:first-child:after {
+  ::v-deep .el-table .el-table__header th:first-child:after {
     content: "厂商";
     text-align: center;
     position: absolute;
@@ -197,7 +197,7 @@ export default {
     font-weight: 500;
   }
 
-  ::v-deep .el-table th.el-table_1_column_1:first-child .cell {
+  ::v-deep .el-table .el-table__header th:first-child .cell {
     position: absolute;
     top: 1px;
     left: 0;

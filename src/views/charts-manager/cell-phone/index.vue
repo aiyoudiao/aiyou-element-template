@@ -201,6 +201,7 @@
                   :normal="true"
                   :loading="sslLineConfig.loading"
                   :extend="sslLineConfig.extend"
+                  :legend-hides="sslLineConfig.legendHides"
                   @cleanLoading="sslLineConfig.loading = false"
                 />
 
@@ -805,11 +806,12 @@ export default {
       /* 折现图配置 普通折线图 */
       sslLineConfig: {
         loading: true,
+        legendHides: ['总会话数', '总会话数七日均值'],
         extend: {
           series: {
             label: {
               normal: {
-                show: true
+                show: false
               }
             }
           }

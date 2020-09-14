@@ -9,15 +9,28 @@
 -->
 <template>
   <div ref="lineContainer" class="common-line">
-
-    <dv-loading v-if="loading" class="my-line-loading">努力加载中...</dv-loading>
+    <dv-loading
+      v-if="loading"
+      class="my-line-loading"
+    >努力加载中...</dv-loading>
     <template v-if="normal">
       <!-- 普通折线图 -->
-      <ve-line ref="chart" :data="chartData" :extend="extendsData" :theme="theme" />
+      <ve-line
+        ref="chart"
+        :data="chartData"
+        :extend="extendsData"
+        :theme="theme"
+      />
     </template>
     <template v-else>
       <!-- 带阴影面积的折线图 -->
-      <ve-line ref="chart" :data="chartData" :settings="chartSettings" :theme="theme" :extend="extendsData" />
+      <ve-line
+        ref="chart"
+        :data="chartData"
+        :settings="chartSettings"
+        :theme="theme"
+        :extend="extendsData"
+      />
     </template>
   </div>
 </template>
@@ -35,6 +48,11 @@ export default {
     loading: {
       type: Boolean,
       default: true
+    },
+    /* 哪些图例不显示 */
+    legendHides: {
+      type: [Array],
+      default: () => []
     },
     /* 列数据 */
     header: {
@@ -66,20 +84,6 @@ export default {
           // 设置高度
           width: '80%'
         },
-
-        // /* 定制化图例 */
-        // legend: [
-        //   {
-        //     show: true,
-        //     itemGap: 80,
-        //     data: ['legend-A', 'legend-B']
-        //   },
-        //   {
-        //     show: true,
-        //     itemGap: 80,
-        //     data: ['legend-A', 'legend-B']
-        //   }
-        // ],
 
         series: {
           label: {
@@ -117,16 +121,22 @@ export default {
     extendsData() {
       const { extendConfig } = this
 
-      const customExtends = { grid: {
-        left: '2%',
-        right: '2%',
-        top: '10%',
-        botom: '0',
-        width: 'auto',
-        containLabel: true
-      }}
+      const customExtends = {
+        grid: {
+          left: '2%',
+          right: '2%',
+          top: '15%',
+          botom: '0',
+          width: 'auto',
+          containLabel: true
+        }
+      }
 
-      return Object.assign(customExtends, extendConfig)
+      const data = Object.assign(customExtends, extendConfig)
+      data.legend.selected = this.legendHides.reduce((prev, name) => { prev[name] = false; return prev }, {})
+      console.log(data)
+
+      return data
     },
 
     isResize() {
@@ -137,7 +147,6 @@ export default {
     isResize() {
       setTimeout(() => {
         this.$refs.chart.echarts.resize()
-        // console.log('执行了')
       }, 500)
     }
   },

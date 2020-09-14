@@ -21,7 +21,16 @@ import {
   CHARTS_MANAGER_INDEX_ZHCN,
   CHARTS_MANAGER_DETAIL,
   CHARTS_MANAGER_DETAIL_PATH,
-  CHARTS_MANAGER_DETAIL_ZHCN
+  CHARTS_MANAGER_DETAIL_ZHCN,
+  CHARTS_MANAGER_DETAIL_2,
+  CHARTS_MANAGER_DETAIL_2_PATH,
+  CHARTS_MANAGER_DETAIL_2_ZHCN,
+  CHARTS_MANAGER_DETAIL_3,
+  CHARTS_MANAGER_DETAIL_3_PATH,
+  CHARTS_MANAGER_DETAIL_3_ZHCN,
+  CHARTS_MANAGER_DETAIL_4,
+  CHARTS_MANAGER_DETAIL_4_PATH,
+  CHARTS_MANAGER_DETAIL_4_ZHCN
 } from '@/constant/charts-manager'
 
 export default (Layout) => ({
@@ -54,6 +63,36 @@ export default (Layout) => ({
       },
       notTop: true, /* 当子节点为1时也不置顶 */
       component: () => import('@/views/charts-manager/cell-phone/detail.vue')
+    },
+    {
+      path: CHARTS_MANAGER_DETAIL_2_PATH,
+      name: CHARTS_MANAGER_DETAIL_2,
+      meta: {
+        title: CHARTS_MANAGER_DETAIL_2_ZHCN,
+        icon: ''
+      },
+      notTop: true, /* 当子节点为1时也不置顶 */
+      component: () => import('@/views/charts-manager/cell-phone/detail2.vue')
+    },
+    {
+      path: CHARTS_MANAGER_DETAIL_3_PATH,
+      name: CHARTS_MANAGER_DETAIL_3,
+      meta: {
+        title: CHARTS_MANAGER_DETAIL_3_ZHCN,
+        icon: ''
+      },
+      notTop: true, /* 当子节点为1时也不置顶 */
+      component: () => import('@/views/charts-manager/cell-phone/detail3.vue')
+    },
+    {
+      path: CHARTS_MANAGER_DETAIL_4_PATH,
+      name: CHARTS_MANAGER_DETAIL_4,
+      meta: {
+        title: CHARTS_MANAGER_DETAIL_4_ZHCN,
+        icon: ''
+      },
+      notTop: true, /* 当子节点为1时也不置顶 */
+      component: () => import('@/views/charts-manager/cell-phone/detail4.vue')
     }
   ]
 })
