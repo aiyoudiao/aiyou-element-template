@@ -121,7 +121,7 @@ export default {
         index,
         align,
         header,
-        data,
+        data: this.filterDataAddTitle(data),
         height,
         rowNum,
         headerHeight,
@@ -191,6 +191,16 @@ export default {
           this.$emit('cleanLoading')
         }, 1000)
       }
+    },
+
+    /* 将轮播列表中的数据过滤成有title提示 */
+    filterDataAddTitle(data) {
+      /* data是一个二维数组 */
+      return data.map(item => {
+        return item.map(text => {
+          return `<span title="${text}">${text}</span>`
+        })
+      })
     }
   }
 }

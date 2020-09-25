@@ -52,7 +52,7 @@
       click-mode="push"
     />
 
-    <bg-animation></bg-animation>
+    <bg-animation />
 
   </div>
 </template>

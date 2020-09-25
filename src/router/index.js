@@ -6,6 +6,7 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 import ChartsManager from './charts-manager'
+import DeviceManager from './device-manager'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -86,6 +87,7 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   ChartsManager(Layout),
+  DeviceManager(Layout),
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

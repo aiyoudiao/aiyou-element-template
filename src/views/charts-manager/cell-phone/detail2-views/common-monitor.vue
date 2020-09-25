@@ -10,6 +10,8 @@
         :size="size"
         unlink-panels
         value-format="yyyy-MM-dd HH:mm:ss"
+        :picker-options="{format:'HH:mm', start:'00:00', end:'23:50', step:'00:10'}"
+        :disabled-date="disabledDate"
         @change="changeDateTimeRange"
       />
     </div>
@@ -60,7 +62,17 @@ export default {
   data() {
     return {
       radioSelect: '开',
-      dateValue: [start, end]
+      dateValue: [start, end],
+      disabledDate(date) {
+        console.log('date', date)
+      }
+      // pickerOptions: {
+      // selectableRange: ['09:30:00 - 12:00:00', '14:30:00 - 18:30:00']
+
+      // disableDate: (time) => {
+      //   console.log('time', time)
+      // }
+      // }
     }
   },
   watch: {
@@ -93,12 +105,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-time-panel.el-popper {
+  width: 150px;
+  background: red;
+}
+
 .monitor-wrapper {
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   .date-wrapper {
+    position: relative;
+    // z-index: 999999999;
     margin-right: 20px;
   }
 }

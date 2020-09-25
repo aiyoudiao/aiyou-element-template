@@ -90,6 +90,32 @@ export default {
             normal: {
               show: false
             }
+          },
+          connectNulls: true
+        },
+        visualMap: {
+          show: true,
+          min: 0, // 最小值
+          max: 10, // 最大值
+          calculable: true, // 是否显示拖拽用的手柄（手柄能拖拽调整选中范围）。
+          inRange: {
+            color: [
+              '#0487ED',
+
+              '#C7C52C',
+
+              '#E26B5B',
+
+              '#3EB177',
+
+              '#794EDC',
+
+              '#B46B2A'
+            ] // 颜色
+          },
+
+          textStyle: {
+            color: '#fff'
           }
         }
       })
@@ -133,7 +159,10 @@ export default {
       }
 
       const data = Object.assign(customExtends, extendConfig)
-      data.legend.selected = this.legendHides.reduce((prev, name) => { prev[name] = false; return prev }, {})
+      data.legend.selected = this.legendHides.reduce((prev, name) => {
+        prev[name] = false
+        return prev
+      }, {})
       console.log(data)
 
       return data

@@ -25,6 +25,7 @@ import '@/icons' // icon
 import '@/permission' // permission control
 
 import VeLine from 'v-charts/lib/line.common'
+
 import dataV from '@jiaminghi/data-view'
 import vueParticles from 'vue-particles'
 

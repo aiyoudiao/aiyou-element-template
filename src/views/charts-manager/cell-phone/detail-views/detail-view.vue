@@ -31,11 +31,13 @@
         />
       </el-table>
       <el-pagination
-        layout="prev,pager,next"
+        layout="total, sizes, prev, pager, next"
+        :page-sizes="[20, 30, 40, 50]"
         :total="100"
         :page-size="pageCount"
         background
         @current-change="onPageChange"
+        @size-change="onSizeChange"
       />
     </div>
   </div>
@@ -73,7 +75,7 @@ export default {
       /* 当前页码 */
       pageIndex: 0,
       /* 每页条数 */
-      pageCount: 10,
+      pageCount: 20,
       tableData: [],
       options: [
         {
@@ -104,17 +106,24 @@ export default {
       return {
         value: value + 1,
         label: value,
-        checked: true
+        checked: false
       }
     })
 
     this.selectList = [...this.options].map(item => item.value)
+    this.selectList.splice(3)
+    this.columnData.splice(3)
   },
   methods: {
     onPageChange(page) {
       this.pageIndex = page - 1
       this.checkoutTableData()
       console.log(page)
+    },
+    onSizeChange(size) {
+      this.pageCount = size
+      this.checkoutTableData()
+      console.log('size', size)
     },
     filterColumnData(row, columns, cellValue, index) {
       return cellValue

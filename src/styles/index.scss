@@ -63,3 +63,18 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+body {
+  .el-time-panel.el-popper {
+    width: 150px;
+  }
+}
+
+// cc-editor
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
