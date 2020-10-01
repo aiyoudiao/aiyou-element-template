@@ -1,6 +1,0 @@
-export const TOYS_MANAGER = 'toys_manager'
-export const TOYS_MANAGER_PATH = '/toys_manager'
-export const TOYS_MANAGER_ZHCN = '玩具可视化管理'
-export const TOYS_MANAGER_INDEX = 'toys-index'
-export const TOYS_MANAGER_INDEX_PATH = 'toys-index'
-export const TOYS_MANAGER_INDEX_ZHCN = '计算器可视化'
