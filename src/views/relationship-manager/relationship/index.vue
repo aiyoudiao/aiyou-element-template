@@ -55,8 +55,8 @@
 
 <script>
 import {
-  DEVICE_MANAGER_INDEX
-} from '@/constant/device-manager'
+  RELATIONSHIP_MANAGER_INDEX
+} from '@/constant/relationship-manager'
 
 import _ from 'lodash'
 import moment from 'moment'
@@ -64,7 +64,7 @@ import { CCTopology } from '@/packages/index'
 import { getRandomArrayElements } from '@/utils/index'
 
 export default {
-  name: DEVICE_MANAGER_INDEX,
+  name: RELATIONSHIP_MANAGER_INDEX,
   components: {
     'cc-topology': CCTopology
   },
@@ -696,6 +696,7 @@ export default {
   .el-main {
     margin: 0;
     padding: 0;
+    height: 100%;
     text-align: center;
   }
 

@@ -1,6 +1,0 @@
-export const DEVICE_MANAGER = 'device_manager'
-export const DEVICE_MANAGER_PATH = '/device_manager'
-export const DEVICE_MANAGER_ZHCN = '设备数据可视化'
-export const DEVICE_MANAGER_INDEX = 'device-index'
-export const DEVICE_MANAGER_INDEX_PATH = 'device-index'
-export const DEVICE_MANAGER_INDEX_ZHCN = '设备关系可视化'
