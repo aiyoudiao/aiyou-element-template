@@ -13,7 +13,10 @@ import {
   G6_MANAGER_CUSTOM_NODE_ZHCN,
   G6_MANAGER_CUSTOM_COMBO,
   G6_MANAGER_CUSTOM_COMBO_PATH,
-  G6_MANAGER_CUSTOM_COMBO_ZHCN
+  G6_MANAGER_CUSTOM_COMBO_ZHCN,
+  G6_MANAGER_CUSTOM_ICONFONT,
+  G6_MANAGER_CUSTOM_ICONFONT_PATH,
+  G6_MANAGER_CUSTOM_ICONFONT_ZHCN
 } from '@/constant/g6-manager'
 
 export default (Layout) => ({
@@ -65,6 +68,16 @@ export default (Layout) => ({
       },
       notTop: true, /* 当子节点为1时也不置顶 */
       component: () => import('@/views/g6-manager/custom-combo/index.vue')
+    },
+    {
+      path: G6_MANAGER_CUSTOM_ICONFONT_PATH,
+      name: G6_MANAGER_CUSTOM_ICONFONT,
+      meta: {
+        title: G6_MANAGER_CUSTOM_ICONFONT_ZHCN,
+        icon: ''
+      },
+      notTop: true, /* 当子节点为1时也不置顶 */
+      component: () => import('@/views/g6-manager/iconfont-test/index.vue')
     }
   ]
 })

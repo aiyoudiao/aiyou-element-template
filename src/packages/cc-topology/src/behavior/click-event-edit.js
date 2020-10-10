@@ -33,9 +33,12 @@ export default {
       // clickNode.setState('selected', !clickNode.hasState('selected'));
       vm.currentFocus = 'node'
       vm.rightMenuShow = false
+      // console.log('我左键点击了节点')
       this.updateVmData(event)
     },
     onNodeRightClick(event) {
+      // console.log('我右键点击了节点')
+
       const graph = vm.graph
       const clickNode = event.item
       const clickNodeModel = clickNode.getModel()
@@ -44,6 +47,8 @@ export default {
         return item.getModel().id
       })
       vm.selectedNode = clickNode
+
+      debugger
       // 如果当前点击节点是之前选中的某个节点，就进行下面的处理
       if (selectedNodes.length > 1 && selectedNodeIds.indexOf(clickNodeModel.id) > -1) {
         vm.rightMenuShow = true
