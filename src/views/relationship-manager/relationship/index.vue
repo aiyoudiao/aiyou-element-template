@@ -64,6 +64,7 @@ import { CCTopology } from '@/packages/index'
 import { getRandomArrayElements } from '@/utils/index'
 
 // import goodData from './data'
+// console.log(goodData)
 import getData from './getData'
 const goodData = getData()
 
@@ -126,6 +127,7 @@ export default {
     },
     handleRefreshClick() {
       this.getRelatedData()
+      // this.handleLayoutClick()
     },
     handleLayoutClick() {
       this.$refs.topology.forceLayoutHandler()

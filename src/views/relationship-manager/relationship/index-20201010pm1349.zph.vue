@@ -298,8 +298,8 @@ export default {
           },
           {
             id: 'database-02',
-            x: 125,
-            y: 290,
+            // x: 125,
+            // y: 290,
             label: '数据库',
             labelCfg: {
               position: 'bottom'

@@ -8,7 +8,7 @@ function resolve(dir) {
 
 const name = defaultSettings.title || '可视化管理系统' // page title
 
-const port = process.env.port || 9528 // dev port
+const port = process.env.port || 9527 // dev port
 
 // https://cli.vuejs.org/config/
 module.exports = {

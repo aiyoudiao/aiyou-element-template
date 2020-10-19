@@ -24,7 +24,9 @@ export default {
             position: 'center' /* 默认是居中显示 */,
             style: {
               fontSize: 14,
-              fill: '#f2740c'
+              // fill: '#f2740c',
+              stroke: '#0f0',
+              lineWidth: 5
             }
           },
           /* 圆形的样式 */

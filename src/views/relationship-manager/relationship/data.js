@@ -93,11 +93,11 @@ export default {
     ],
     edges: [
       {
-        id: 'edge-02',
+        id: 'edge-01',
         source: 'client-01',
         sourceAnchor: 2,
         target: 'firewall-01',
-        type: 'cc-polyline',
+        type: 'cc-cubic',
         style: {
           stroke: '#A3B1BF',
           lineWidth: 2,
@@ -113,7 +113,7 @@ export default {
         targetAnchor: 0
       },
       {
-        id: 'edge-05',
+        id: 'edge-02',
         source: 'firewall-01',
         sourceAnchor: 2,
         target: 'server-01',
@@ -132,25 +132,18 @@ export default {
         },
         targetAnchor: 0
       }
-    ],
-    layout: {
-      type: 'force',
-      center: [200, 200],
-      preventOverlap: true,
-      linkDistance: 150,
-      nodeStrength: -200
-    }
+    ]
   },
   nodeTypeList: [
-    { guid: 'blue', label: '服务器', imgSrc: require('@/assets/images/server.png') },
-    { guid: 'green', label: '数据库', imgSrc: require('@/assets/images/database.png') },
-    { guid: 'purple', label: '防火墙', imgSrc: require('@/assets/images/firewall.png') },
-    { guid: 'yellow', label: '客户端', imgSrc: require('@/assets/images/client.png') }
+    // { guid: 'blue', label: '服务器',             desc: '客户端', imgSrc: require('@/assets/images/server.png') },
+    // { guid: 'green', label: '数据库', imgSrc: require('@/assets/images/database.png') },
+    // { guid: 'purple', label: '防火墙', imgSrc: require('@/assets/images/firewall.png') },
+    // { guid: 'yellow', label: '客户端', imgSrc: require('@/assets/images/client.png') }
 
-    // { guid: 'blue', label: '逻辑服务器', imgSrc: require('@/assets/images/server.png') },
-    // // { guid: 'green', label: '数据库', imgSrc: require('@/assets/images/database.png') },
-    // { guid: 'purple', label: '网卡', imgSrc: require('@/assets/images/firewall.png') },
-    // { guid: 'yellow', label: '应用系统', imgSrc: require('@/assets/images/client.png') }
+    { guid: 'blue', label: '逻辑服务器', imgSrc: require('@/assets/images/server.png') },
+    // { guid: 'green', label: '数据库', imgSrc: require('@/assets/images/database.png') },
+    { guid: 'purple', label: '网卡', imgSrc: require('@/assets/images/firewall.png') },
+    { guid: 'yellow', label: '应用系统', imgSrc: require('@/assets/images/client.png') }
   ],
   // 节点配置
   nodeAppConfig: {
