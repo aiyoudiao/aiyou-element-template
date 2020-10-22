@@ -4,7 +4,10 @@ import {
   TOYS_MANAGER_ZHCN,
   TOYS_MANAGER_INDEX,
   TOYS_MANAGER_INDEX_PATH,
-  TOYS_MANAGER_INDEX_ZHCN
+  TOYS_MANAGER_INDEX_ZHCN,
+  TOYS_MANAGER_MENU_DIALOG,
+  TOYS_MANAGER_MENU_DIALOG_PATH,
+  TOYS_MANAGER_MENU_DIALOG_ZHCN
 } from '@/constant/toys-manager'
 
 export default (Layout) => ({
@@ -26,6 +29,16 @@ export default (Layout) => ({
       },
       notTop: true, /* 当子节点为1时也不置顶 */
       component: () => import('@/views/toys-manager/calculator/index.vue')
+    },
+    {
+      path: TOYS_MANAGER_MENU_DIALOG_PATH,
+      name: TOYS_MANAGER_MENU_DIALOG,
+      meta: {
+        title: TOYS_MANAGER_MENU_DIALOG_ZHCN,
+        icon: ''
+      },
+      notTop: true, /* 当子节点为1时也不置顶 */
+      component: () => import('@/views/toys-manager/menu-dialog/index.vue')
     }
   ]
 })
