@@ -8,6 +8,7 @@ import Layout from '@/layout'
 import ChartsManager from './charts-manager'
 import RelationshipManager from './relationship-manager'
 import G6Manager from './g6-manager'
+import VisualManager from './visual-manager'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -90,6 +91,7 @@ export const asyncRoutes = [
   ChartsManager(Layout),
   RelationshipManager(Layout),
   G6Manager(Layout),
+  VisualManager(Layout),
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
