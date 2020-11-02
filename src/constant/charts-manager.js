@@ -17,7 +17,7 @@ export const CHARTS_MANAGER_ZHCN = '数据可视化'
 
 export const CHARTS_MANAGER_INDEX = 'cell-phone'
 export const CHARTS_MANAGER_INDEX_PATH = 'cell-phone'
-export const CHARTS_MANAGER_INDEX_ZHCN = '手机银行运营数据大屏2'
+export const CHARTS_MANAGER_INDEX_ZHCN = '手机银行运营数据大屏'
 
 export const CHARTS_MANAGER_DETAIL = 'cell-phone-detail'
 export const CHARTS_MANAGER_DETAIL_PATH = 'cell-phone-detail'
