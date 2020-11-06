@@ -9,9 +9,15 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
+  transformIgnorePatterns: ['/node_modules/'],
   snapshotSerializers: ['jest-serializer-vue'],
+  testEnvironment: 'jest-environment-jsdom-fifteen',
+  /* 忽略掉的测试文件夹或目录 */
+  testPathIgnorePatterns: ['.eslintrc.js'],
+
   testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
+    // '**/tests/unit/**/*.spec.[jt]s?(x)',
+    '**/__tests__/unit/**/*.[jt]s?(x)'
   ],
   collectCoverageFrom: ['src/utils/**/*.{js,vue}', '!src/utils/auth.js', '!src/utils/request.js', 'src/components/**/*.{js,vue}'],
   coverageDirectory: '<rootDir>/tests/unit/coverage',
@@ -20,5 +26,9 @@ module.exports = {
     'lcov',
     'text-summary'
   ],
-  testURL: 'http://localhost/'
+  testURL: 'http://localhost/',
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname'
+  ]
 }

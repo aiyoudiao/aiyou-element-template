@@ -1,5 +1,10 @@
 <template>
+
   <div class="add-template-wrapper">
+    <dv-loading
+      v-if="loading"
+      class="my-line-loading"
+    >数据加载中...</dv-loading>
     <div class="left-box">
       <left-menu :menu-list="menuList" :open-menu-list="openMenuList" :active-menu-name="activeMenuNameOrSubpage" @handleMenuItemClick="handleMenuItemClick" />
     </div>
@@ -24,19 +29,15 @@ export default {
   },
   data() {
     return {
+      loading: false,
+
       openMenuList: [
         'source-info',
         'operate-info',
         'devops-info'
       ],
-      activeMenuNameOrSubpage: 'base-info',
+      activeMenuNameOrSubpage: 'type-info',
       menuList: [
-        {
-          name: 'base-info',
-          meta: {
-            title: '基本信息', icon: 'nested'
-          }
-        },
         {
           name: 'source-info',
           meta: { title: '资源信息', icon: 'nested' },
@@ -114,6 +115,64 @@ export default {
               notTop: true
             }
           ]
+        },
+        {
+          name: 'data-source',
+          meta: { title: '数据源', icon: 'nested' },
+          children: [
+            {
+              name: 'type-info',
+              meta: {
+                title: '选择类型', icon: 'nested'
+              }
+            },
+            {
+              name: 'devops-device',
+              meta: { title: '设备', icon: '' },
+              notTop: true
+            },
+            {
+              name: 'devops-port',
+              meta: { title: '端口', icon: '' },
+              notTop: true
+            },
+            {
+              name: 'devops-dedicated-line',
+              meta: { title: '专线', icon: '' },
+              notTop: true
+            },
+            {
+              name: 'devops-app-system',
+              meta: { title: '应用系统', icon: '' },
+              notTop: true
+            },
+            {
+              name: 'devops-vs',
+              meta: { title: 'VS', icon: '' },
+              notTop: true
+            },
+            {
+              name: 'devops-region',
+              meta: { title: '区域', icon: '' },
+              notTop: true
+            },
+            {
+              name: 'devops-domain',
+              meta: { title: '域名', icon: '' },
+              notTop: true
+            },
+            {
+              name: 'devops-app-node',
+              meta: { title: '应用节点', icon: '' },
+              notTop: true
+            }
+          ]
+        },
+        {
+          name: 'view-info',
+          meta: {
+            title: '预览', icon: 'nested'
+          }
         }
       ]
     }
@@ -140,15 +199,19 @@ export default {
     },
 
     showLayout() {
-      document.querySelector('.sidebar-container').style.display = null
       document.querySelector('.main-container').style.marginLeft = null
+      document.querySelector('.sidebar-container').style.display = null
       document.querySelector('.app-main').style.padding = null
       document.querySelector('.fixed-header').style.display = null
     },
 
     handleBackLevel() {
-      this.$emit('showHome')
       this.showLayout()
+      this.loading = true
+      setTimeout(() => {
+        this.$emit('showHome')
+        this.loading = false
+      }, 1000)
     },
     handleSubmitConfig() {
       const data = this.$refs.addPage.settingDataList
@@ -164,11 +227,19 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   justify-content: flex-start;
+  position: relative;
 
+  .dv-loading.my-line-loading {
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(256, 256, 256, 1);
+    width: 100%;
+    height: calc(100%);
+  }
   .left-box {
-    width: 150px;
-
-  // overflow-y: auto;
+    height: 100vh;
+    background-color: #304156;
+    overflow: hidden;
   }
   .right-box {
     width: calc(100% - 150px);

@@ -13,14 +13,14 @@ export default (Layout) => ({
   },
   children: [
     {
-      path: 'system-visual-template',
-      name: 'system-visual-template',
+      path: 'app-visual-template',
+      name: 'app-visual-template',
       meta: {
         title: '应用可视化模板管理',
-        icon: 'system-template'
+        icon: 'app-template'
       },
       notTop: true, /* 当子节点为1时也不置顶 */
-      component: () => import('@/views/system-manager/system-visual-template/index.vue')
+      component: () => import('@/views/system-manager/app-visual-template/index.vue')
     }
   ]
 })

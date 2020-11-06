@@ -9,7 +9,8 @@
 
 <script>
 
-import BaseInfo from './sub-page/index.vue'
+import TypeInfo from './sub-page/index.vue'
+import ViewInfo from './sub-page/view.vue'
 
 import DeviceInfo from './sub-page/source-info/device-info.vue'
 import ServiceInfo from './sub-page/source-info/service-info.vue'
@@ -27,7 +28,8 @@ import DevopsAppNode from './sub-page/devops-info/devops-app-node.vue'
 
 export default {
   components: {
-    'base-info': BaseInfo,
+    'type-info': TypeInfo,
+    'view-info': ViewInfo,
     'device-info': DeviceInfo,
     'service-info': ServiceInfo,
     'net-alarm-info': NetAlarmInfo,

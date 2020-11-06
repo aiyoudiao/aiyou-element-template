@@ -1,6 +1,6 @@
 <template>
-  <div class="basic-info">
-    基本信息
+  <div class="view-info">
+    预览
   </div>
 </template>
 

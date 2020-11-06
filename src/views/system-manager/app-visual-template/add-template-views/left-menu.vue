@@ -34,12 +34,15 @@ export default {
 
 <style lang="scss">
 .menu-wrapper {
-  height: calc(100vh);
-  background-color: #304156;
-  width: 100%;
-  .el-menu, .el-submenu, .el-menu-item, .el-menu-item-group {
-    width: 150px;
-    // overflow-x: hidden;
+  width: 210px;
+  overflow-x: hidden;
+  .el-scrollbar {
+    height: calc(100vh - 50px)!important;
+    .scrollbar-wrapper {
+        overflow-x: hidden;
+    }
   }
+
 }
+
 </style>

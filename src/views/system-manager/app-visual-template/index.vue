@@ -1,6 +1,7 @@
 <template>
   <div class="visual-template-wrapper">
     <component :is="page" @handleAddClick="handleAddClick" @showHome="showHome" />
+
   </div>
 </template>
 
