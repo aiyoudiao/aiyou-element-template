@@ -21,13 +21,16 @@ const initGraph = {
   commonGraph: function(G6, options) {
     const graphData = options.graphData
     const themeStyle = theme.defaultStyle // todo...先使用默认主题，后期可能增加其它风格的主体
+    console.log('options:', options)
     // 生成G6实例
     const graph = new G6.Graph({
       plugins: options.plugins,
       container: options.container,
       width: options.width,
       height: options.height,
-      groupByTypes: options.graphMode === 'edit', // TODO...G6 节点与边的层级(临时方案)
+      /* 这个值如果是true，combo那里就会出问题 */
+      // groupByTypes: options.graphMode === 'edit', // TODO...G6 节点与边的层级(临时方案)
+      groupByTypes: false, // TODO...G6 节点与边的层级(临时方案)
       defaultNode: {
         type: 'cc-rect',
         labelCfg: themeStyle.nodeLabelCfg

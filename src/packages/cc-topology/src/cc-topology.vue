@@ -183,18 +183,30 @@
 <script>
 import _ from 'lodash'
 import G6 from '@antv/g6'
+/* 预览的操作栏 */
 import ToolbarPreview from './toolbar-preview'
+/* 编辑的操作栏 */
 import ToolbarEdit from './toolbar-edit'
+/* 注册边 */
 import registerEdge from './edge'
+/* 注册节点 */
 import ccNode from './node'
+/* 注册行为 */
 import ccBehavior from './behavior'
+/* 配置中有一个自定义节点 */
 import config from './config'
+/* 一共有三种皮肤 */
 import theme from './theme'
+/* 这个方法会一个通用的初始化graph对象，使用的皮肤是默认的皮肤(./theme.js中的defaultStyle) */
 import initGraph from './graph'
+/* 一些适用的工具方法，比如设置边state、节点state、绘制锚点、设置表单的状态、更新锚点的状态等等 */
 import utils from './utils'
 
+/* 给G6注册自定义边 */
 registerEdge(G6)
+/* 给G6注册自定义节点 */
 ccNode.register(G6)
+/* 给G6注册自定义行为 */
 ccBehavior.register(G6)
 
 export default {
@@ -247,6 +259,8 @@ export default {
         window.innerHeight ||
         document.documentElement.clientHeight ||
         document.body.clientHeight,
+
+      /* 操作栏的选择边的下拉列表 */
       edgeShapeList: [
         { guid: 'cc-line', label: '直线', class: 'iconfont icon-flow-line' },
         {
@@ -263,25 +277,36 @@ export default {
       ],
       graph: null,
       minimap: null,
+      /* 默认是预览模式 */
       graphMode: 'preview',
+      /* 默认选择的边是直线边 */
       currentEdgeShape: {
         guid: 'cc-line',
         label: '直线'
       },
+      /* 当前默认聚焦的是画布 */
       currentFocus: 'canvas',
+      /* 选中后的节点 */
       selectedNode: null,
+      /* 选中后的节点的参数 */
       selectedNodeParams: {
         label: '',
         appConfig: this.nodeAppConfig
       },
+      /* 选中后节点的定时器ID，当你选中某个节点，然后修改它的文本时，会有一个更新节点的操作，这个定时器ID是用来节流，避免频繁刷新 */
       selectedNodeParamsTimeout: null,
+      /* 选中后的边 */
       selectedEdge: null,
+      /* 选中后边的参数 */
       selectedEdgeParams: {
         label: '',
         appConfig: this.edgeAppConfig
       },
+      /* 选中后 边的定时器ID，当你选中某个边，然后修改它的文本时，会有一个更新边的操作，这个定时器ID是用来节流，避免频繁刷新 */
       selectedEdgeParamsTimeout: null,
+      /* 选中后的combo */
       selectedCombo: null,
+      /* 选中后 combo的参数 */
       selectedComboParams: {
         label: '',
         labelPosition: '',
@@ -289,21 +314,29 @@ export default {
         labelRefY: 0,
         type: ''
       },
+      /* 选中后 combo的定时器ID，当你选中某个combo，然后修改它的文本时，会有一个更新combo的操作，这个定时器ID是用来节流，避免频繁刷新 */
       selectedComboParamsTimeout: null,
+      /* 放大的倍数 */
       zoomValue: 1,
+      /* 粘贴板的节点 */
       nodesInClipboard: [],
       historyIndex: 0,
+      /* 撤销计数 */
       undoCount: 0,
+      /* 放大缩小的定时器ID */
       onresizeTimeout: null,
+      /* 黏贴的次数 */
       pasteCount: 0
     }
   },
   computed: {
+    /* 禁用撤销 */
     disableUndo: function() {
       return (
         this.historyIndex === 0 || this.historyIndex - (this.undoCount + 1) < 0
       )
     },
+    /* 禁用前进 */
     disableRedo: function() {
       return (
         this.historyIndex === 0 ||
@@ -311,15 +344,19 @@ export default {
         this.undoCount < 1
       )
     },
+    /* 禁用拷贝 */
     disableCopy: function() {
       return this.selectedNodes.length === 0
     },
+    /* 禁用黏贴 */
     disablePaste: function() {
       return this.nodesInClipboard.length === 0
     },
+    /* 禁用删除 */
     disableDelete: function() {
       return this.selectedNodes.length === 0 && this.selectedEdges.length === 0
     },
+    /* 选中的节点 */
     selectedNodes: function() {
       const self = this
       const graph = self.graph
@@ -329,6 +366,7 @@ export default {
         return []
       }
     },
+    /* 选中的边 */
     selectedEdges: function() {
       const graph = this.graph
       if (graph && !graph.destroyed) {
@@ -339,12 +377,15 @@ export default {
     }
   },
   watch: {
+    /* 监听布局类型，但这个方法没有使用 */
     layoutType() {
       this.initTopo(this.graphData)
     },
+    /* 监听右侧面板展示 */
     graphPanelShow() {
       this.onresizeHandler()
     },
+    /* 监听选中节点后的参数（右侧面板属性发生变化时） */
     selectedNodeParams: {
       deep: true,
       handler: function(newVal, oldVal) {
@@ -367,6 +408,7 @@ export default {
         }, 500)
       }
     },
+    /* 监听选中 边 后的参数（右侧面板属性发生变化时） */
     selectedEdgeParams: {
       deep: true,
       handler: function(newVal, oldVal) {
@@ -390,6 +432,7 @@ export default {
         }, 500)
       }
     },
+    /* 监听选中 combo 后的参数（右侧面板属性发生变化时） */
     selectedComboParams: {
       deep: true,
       handler: function(newVal, oldVal) {
@@ -425,54 +468,70 @@ export default {
   },
   created() {},
   mounted() {
+    /* 分别在合适的时候注入vue实例对象 */
     ccNode.obj.ccImage.sendThis(this)
     ccBehavior.obj.clickEventEdit.sendThis(this)
     ccBehavior.obj.dragAddEdge.sendThis(this)
     ccBehavior.obj.dragEventEdit.sendThis(this)
     ccBehavior.obj.keyupEventEdit.sendThis(this)
+
+    /* 清除历史数据对象 */
     this.clearHistoryData()
     // this.initTopo(this.graphData)
+
+    /* 设置聚焦的倍数 */
     this.autoZoomHandler()
+    /* 只要窗体发生变化，就会重置画布大小 */
     window.onresize = () => {
       return (() => {
         this.onresizeHandler()
       })()
     }
   },
+  /* 更新这个路由页面前 */
   beforeRouteUpdate(to, from, next) {
     this.clearHistoryData()
     next()
   },
+  /* 离开这个路由页面前 */
   beforeRouteLeave(to, from, next) {
     this.clearHistoryData()
     next()
   },
+  /* 页面销毁前 */
   beforeDestroy() {
     this.clearHistoryData()
   },
   methods: {
+    /* 切换右侧面板 */
     toggleCollapse() {
       this.graphPanelShow = !this.graphPanelShow
     },
+    /* 打开全屏的loading动画 */
     openFullScreenLoading() {
       this.loading = true
     },
+    /* 关闭全屏的loading动画 */
     closeFullScreenLoading() {
       const self = this
       self.$nextTick(() => {
         self.loading = false
       })
     },
+    /* 开始拖拽的时候（子元素） */
     dragstartHandler(event, nodeType) {
-      // console.log('event', event)
+      console.log('event', event)
       event.dataTransfer.setData('text', JSON.stringify(nodeType))
     },
+    /* 拖拽进入容器范围内 （父元素） */
     dragenterHandler(event) {
       event.preventDefault()
     },
+    /* 拖拽进入容器范围内，还在拖动时 (父元素) */
     dragoverHandler(event) {
       event.preventDefault()
     },
+    /* 拖拽进入容器范围内，拖动完毕，鼠标放下时 (父元素) */
     dropHandler(event) {
       const nodeTypeStr = event.dataTransfer.getData('text')
       const nodeType = JSON.parse(nodeTypeStr)
@@ -480,14 +539,17 @@ export default {
       const clientY = event.clientY
       this.addNode(clientX, clientY, nodeType)
     },
+    /* 结束拖拽的时候（子元素） */
     dragendHandler(e) {
       e.cancelBubble = true
       e.returnValue = false
       e.preventDefault && e.preventDefault()
       return false
     },
+    /* 初始化拓扑图 */
     initTopo(graphData) {
       const self = this
+      /* 如果graph存在，就销毁 */
       if (self.graph) {
         self.graph.destroy()
       }
@@ -536,6 +598,7 @@ export default {
         edit: [
           'drag-node',
           'drag-canvas',
+          // 'zoom-canvas',
           {
             type: 'click-select',
             trigger: 'ctrl',
@@ -592,7 +655,7 @@ export default {
       self.graph.refresh()
       self.autoZoomHandler()
     },
-    /* 自动布局 */
+    /* 使用力导向布局 */
     forceLayoutHandler() {
       const graph = this.graph
       if (graph && !graph.destroyed) {
@@ -609,6 +672,7 @@ export default {
         })
       }
     },
+    /* 设置当前线条的类型，可以在联线的时候做处理 */
     changeEdgeShapeHandler(edgeShape) {
       this.currentEdgeShape = _.find(this.edgeShapeList, { guid: edgeShape })
       this.graph.$C.edge.type = this.currentEdgeShape['guid']
@@ -968,6 +1032,7 @@ export default {
         }
       })
     },
+    /* 处理窗口大小时，画布区域的变化 */
     onresizeHandler() {
       // 实时监听窗口大小变化
       const self = this

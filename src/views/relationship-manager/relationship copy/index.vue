@@ -65,7 +65,7 @@ import { getRandomArrayElements } from '@/utils/index'
 
 // import goodData from './data'
 // console.log(goodData)
-import getData from './getData2'
+import getData from './getData'
 const goodData = getData()
 
 export default {
@@ -119,26 +119,19 @@ export default {
     this.$refs.topology.changeGraphTheme(theme)
   },
   methods: {
-    /* 编辑按钮 */
     handleEditClick() {
       clearInterval(this.autoRefreshTimer)
       this.graphMode = 'edit'
       const graphData = _.cloneDeep(this.graphData)
       this.$refs.topology.changeGraphMode(graphData, 'edit')
     },
-
-    /* 刷新按钮 */
     handleRefreshClick() {
       this.getRelatedData()
       // this.handleLayoutClick()
     },
-
-    /* 自动布局按钮 */
     handleLayoutClick() {
       this.$refs.topology.forceLayoutHandler()
     },
-
-    /* 返回按钮，也是返回预览界面 */
     handlePreviewClick() {
       this.graphMode = 'preview'
       // 需要先去异步请求获取远程的 graphData
@@ -146,8 +139,6 @@ export default {
       this.$refs.topology.changeGraphMode(graphData, 'preview')
       this.handleRefreshClick()
     },
-
-    /* 触发自动刷新下拉列表的事件 */
     toggleAutoRefresh(command) {
       if (command && command !== 'close') {
         this.autoRefresh.interval = Number(command)
@@ -163,16 +154,12 @@ export default {
         clearInterval(this.autoRefreshTimer)
       }
     },
-
-    /* 初始化图数据 */
     initGraphData() {
       // 异步请求获取远程的 graphData
       const graphData = _.cloneDeep(this.graphData)
       this.$refs.topology.initTopo(graphData)
       this.handleRefreshClick()
     },
-
-    /* 保存当前拖拽后的图数据 */
     handleGraphDataSave() {
       const { nodes, edges, groups, combos } = this.$refs.topology.getGraphData()
 
@@ -185,8 +172,6 @@ export default {
       }
       // console.log(JSON.stringify({ nodes, edges, groups, combos }))
     },
-
-    /* 获取一些提示的数据，这些数据会在预览模式中以鼠标悬浮的方式展示，也可以通过在编辑模式时，点击节点、边、combo时在右侧属性面板中展示 */
     getRelatedData() {
       this.dataUpdateTime = moment().format('YYYY-MM-DD HH:mm:ss')
       const graphData = _.cloneDeep(this.$refs.topology.getGraphData())
@@ -197,36 +182,36 @@ export default {
       })
       for (let i = 0, len = nodes.length; i < len; i++) {
         const node = nodes[i]
-        // console.log('node' + i, node)
+        console.log('node' + i, node)
         const { ip, port, sysName } = node.appConfig
         // if (randomNodeIds.indexOf(node.id) > -1) {
-        // if (ip && port && sysName) {
-        //   node.description = `<p class="tooltips-title text-center">${node.label}</p>
-        //         <table class="tooltips-table">
-        //         <tr>
-        //         <td style="text-align:left;color:#303133">设备IP: ${ip}</td>
-        //         </tr>
-        //         <tr>
-        //         <td style="text-align:left;color:#303133">服务器端口号: ${port}</td>
-        //         </tr>
-        //         <tr>
-        //         <td style="text-align:left;color:#303133">设备名称: ${sysName}</td>
-        //         </tr>
-        //         <tr>
-        //         <td style="text-align:left;color:#ff0000">CPU使用率: 99%</td>
-        //         </tr>
-        //         <tr>
-        //         <td style="text-align:left;color:#ff0000">内存使用率: 72%</td>
-        //         </tr>
-        //         <tr>
-        //         <td style="text-align:left;color:#303133">最近刷新时间: ${this.dataUpdateTime}</td>
-        //         </tr>
-        //         </table>`
-        //   node.appState.alert = true
-        // } else {
-        //   nodes[i].appState.alert = false
-        //   nodes[i]['description'] = '<p class="tooltips-title text-center">没有数据</p>'
-        // }
+        if (ip && port && sysName) {
+          node.description = `<p class="tooltips-title text-center">${node.label}</p>
+                <table class="tooltips-table">
+                <tr>
+                <td style="text-align:left;color:#303133">设备IP: ${ip}</td>
+                </tr>
+                <tr>
+                <td style="text-align:left;color:#303133">服务器端口号: ${port}</td>
+                </tr>
+                <tr>
+                <td style="text-align:left;color:#303133">设备名称: ${sysName}</td>
+                </tr>
+                <tr>
+                <td style="text-align:left;color:#ff0000">CPU使用率: 99%</td>
+                </tr>
+                <tr>
+                <td style="text-align:left;color:#ff0000">内存使用率: 72%</td>
+                </tr>
+                <tr>
+                <td style="text-align:left;color:#303133">最近刷新时间: ${this.dataUpdateTime}</td>
+                </tr>
+                </table>`
+          node.appState.alert = true
+        } else {
+          nodes[i].appState.alert = false
+          nodes[i]['description'] = '<p class="tooltips-title text-center">没有数据</p>'
+        }
       }
       this.$refs.topology.changeGraphData(graphData)
     }
