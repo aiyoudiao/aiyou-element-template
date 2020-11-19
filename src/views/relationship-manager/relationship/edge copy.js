@@ -4,10 +4,10 @@ export default {
   sourceAnchor: 0,
   target: 'firewall-01',
   // type: 'cc-cubic',
-  type: 'line',
+  type: 'cc-line',
   style: {
     stroke: '#A3B1BF',
-    lineWidth: 1,
+    lineWidth: 2,
     strokeOpacity: 0.92,
     lineAppendWidth: 10,
     startArrow: false,

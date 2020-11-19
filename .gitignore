@@ -14,3 +14,9 @@ tests/**/coverage/
 *.ntvs*
 *.njsproj
 *.sln
+
+# private
+graph-1605577872944.json
+graph-1605669002674.json
+dirtyData3.js
+demo.txt

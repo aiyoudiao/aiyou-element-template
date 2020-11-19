@@ -49,133 +49,6 @@
           </div>
         </div>
       </el-col>
-      <!-- graph-pannel -->
-      <el-col
-        v-if="graphMode === 'edit' && graphPanelShow === true"
-        class="graph-pannel"
-        :span="5"
-      >
-        <!-- 聚焦到节点处 -->
-        <div v-if="currentFocus === 'node'">
-          <div class="pannel-title">节点</div>
-          <div class="pannel-body">
-            <span>节点标签</span>
-            <el-input
-              v-model="selectedNodeParams.label"
-              class="params-input"
-              size="mini"
-            />
-            <!--<input class="params-input" type="text" autocomplete="off" v-model="selectedNodeParams.label"/>-->
-            <div v-for="(value, key) in nodeAppConfig" :key="key">
-              <span>{{ value }}</span>
-              <el-input
-                v-model="selectedNodeParams.appConfig[key]"
-                class="params-input"
-                size="mini"
-              />
-              <!--<input class="params-input" type="text" autocomplete="off" v-model="selectedNodeParams.appConfig[key]"/>-->
-            </div>
-          </div>
-        </div>
-        <!-- 聚焦到边上 -->
-        <div v-else-if="currentFocus === 'edge'">
-          <div class="pannel-title">连线</div>
-          <div class="pannel-body">
-            <span>连线标签</span>
-            <el-input
-              v-model="selectedEdgeParams.label"
-              class="params-input"
-              size="mini"
-            />
-            <!--<input class="params-input" type="text" autocomplete="off" v-model="selectedEdgeParams.label"/>-->
-            <div v-for="(value, key) in edgeAppConfig" :key="key">
-              <span>{{ value }}</span>
-              <el-input
-                v-model="selectedEdgeParams.appConfig[key]"
-                class="params-input"
-                size="mini"
-              />
-              <!--<input class="params-input" type="text" autocomplete="off" v-model="selectedEdgeParams.appConfig[key]"/>-->
-            </div>
-          </div>
-        </div>
-        <!-- 聚焦到联合体上 -->
-        <div v-else-if="currentFocus === 'combo'">
-          <div class="pannel-title">分组</div>
-          <div class="pannel-body">
-            <span>分组标签</span>
-            <el-input
-              v-model="selectedComboParams.label"
-              class="params-input"
-              size="mini"
-            />
-            <span>标签位置</span>
-            <el-select
-              v-model="selectedComboParams.labelPosition"
-              class="params-select"
-              placeholder="请选择"
-              size="mini"
-            >
-              <el-option label="top" value="top" />
-              <el-option label="left" value="left" />
-              <el-option label="right" value="right" />
-              <el-option label="bottom" value="bottom" />
-              <el-option label="center" value="center" />
-            </el-select>
-            <span>水平偏移</span>
-            <el-input-number
-              v-model="selectedComboParams.labelRefX"
-              class="params-input-number"
-              :controls="false"
-              :min="-100"
-              :max="100"
-              label="标签水平方向偏移"
-              size="mini"
-            />
-            <span>垂直偏移</span>
-            <el-input-number
-              v-model="selectedComboParams.labelRefY"
-              class="params-input-number"
-              :controls="false"
-              :min="-100"
-              :max="100"
-              label="标签水平方向偏移"
-              size="mini"
-            />
-            <span>分组形状</span>
-            <el-select
-              v-model="selectedComboParams.type"
-              class="params-select"
-              placeholder="请选择"
-              size="mini"
-            >
-              <el-option label="circle" value="circle" />
-              <el-option label="rect" value="rect" />
-            </el-select>
-          </div>
-        </div>
-        <!-- 聚焦到画布上 -->
-        <div v-else>
-          <div class="pannel-title">画布</div>
-          <div class="pannel-body">
-            <div
-              v-for="nodeType in nodeTypeList"
-              :key="nodeType.guid"
-              class="node-type"
-            >
-              <img
-                :src="nodeType.imgSrc"
-                :alt="nodeType.label"
-                :title="nodeType.desc"
-                :draggable="true"
-                @dragstart="dragstartHandler($event, nodeType)"
-                @dragend="dragendHandler"
-              >
-              <label>{{ nodeType.label }}</label>
-            </div>
-          </div>
-        </div>
-      </el-col>
     </el-row>
   </div>
 </template>
@@ -248,8 +121,7 @@ export default {
       rightMenuShow: false,
       graphData: {
         nodes: [],
-        edges: [],
-        combos: []
+        edges: []
       },
       loading: false,
       clientWidth:
@@ -379,102 +251,102 @@ export default {
   },
   watch: {
     /* 监听布局类型，但这个方法没有使用 */
-    // layoutType() {
-    //   this.initTopo(this.graphData)
-    // },
+    layoutType() {
+      this.initTopo(this.graphData)
+    },
     /* 监听右侧面板展示 */
     graphPanelShow() {
       this.onresizeHandler()
-    }
+    },
     /* 监听选中节点后的参数（右侧面板属性发生变化时） */
-    // selectedNodeParams: {
-    //   deep: true,
-    //   handler: function(newVal, oldVal) {
-    //     const selectedNodeModel = this.selectedNode.getModel()
-    //     if (
-    //       utils.isObjectValueEqual(
-    //         selectedNodeModel.appConfig,
-    //         newVal.appConfig
-    //       ) &&
-    //       selectedNodeModel.label === newVal.label
-    //     ) {
-    //       return
-    //     }
-    //     // 实时监听input值的变化，停止输入500ms后执行update，而不是时时update
-    //     clearTimeout(this.selectedNodeParamsTimeout)
-    //     this.selectedNodeParamsTimeout = setTimeout(() => {
-    //       selectedNodeModel.label = newVal.label
-    //       selectedNodeModel.appConfig = newVal.appConfig
-    //       this.selectedNode.update(selectedNodeModel)
-    //     }, 500)
-    //   }
-    // },
+    selectedNodeParams: {
+      deep: true,
+      handler: function(newVal, oldVal) {
+        const selectedNodeModel = this.selectedNode.getModel()
+        if (
+          utils.isObjectValueEqual(
+            selectedNodeModel.appConfig,
+            newVal.appConfig
+          ) &&
+          selectedNodeModel.label === newVal.label
+        ) {
+          return
+        }
+        // 实时监听input值的变化，停止输入500ms后执行update，而不是时时update
+        clearTimeout(this.selectedNodeParamsTimeout)
+        this.selectedNodeParamsTimeout = setTimeout(() => {
+          selectedNodeModel.label = newVal.label
+          selectedNodeModel.appConfig = newVal.appConfig
+          this.selectedNode.update(selectedNodeModel)
+        }, 500)
+      }
+    },
     /* 监听选中 边 后的参数（右侧面板属性发生变化时） */
-    // selectedEdgeParams: {
-    //   deep: true,
-    //   handler: function(newVal, oldVal) {
-    //     const selectedEdgeModel = this.selectedEdge.getModel()
-    //     if (
-    //       utils.isObjectValueEqual(
-    //         selectedEdgeModel.appConfig,
-    //         newVal.appConfig
-    //       ) &&
-    //       selectedEdgeModel.label === newVal.label
-    //     ) {
-    //       return
-    //     }
-    //     // 实时监听input值的变化，停止输入500ms后执行update，而不是时时update
-    //     clearTimeout(this.selectedEdgeParamsTimeout)
-    //     this.selectedEdgeParamsTimeout = setTimeout(() => {
-    //       const selectedEdgeModel = this.selectedEdge.getModel()
-    //       selectedEdgeModel.label = newVal.label
-    //       selectedEdgeModel.appConfig = newVal.appConfig
-    //       this.selectedEdge.update(selectedEdgeModel)
-    //     }, 500)
-    //   }
-    // },
+    selectedEdgeParams: {
+      deep: true,
+      handler: function(newVal, oldVal) {
+        const selectedEdgeModel = this.selectedEdge.getModel()
+        if (
+          utils.isObjectValueEqual(
+            selectedEdgeModel.appConfig,
+            newVal.appConfig
+          ) &&
+          selectedEdgeModel.label === newVal.label
+        ) {
+          return
+        }
+        // 实时监听input值的变化，停止输入500ms后执行update，而不是时时update
+        clearTimeout(this.selectedEdgeParamsTimeout)
+        this.selectedEdgeParamsTimeout = setTimeout(() => {
+          const selectedEdgeModel = this.selectedEdge.getModel()
+          selectedEdgeModel.label = newVal.label
+          selectedEdgeModel.appConfig = newVal.appConfig
+          this.selectedEdge.update(selectedEdgeModel)
+        }, 500)
+      }
+    },
     /* 监听选中 combo 后的参数（右侧面板属性发生变化时） */
-    // selectedComboParams: {
-    //   deep: true,
-    //   handler: function(newVal, oldVal) {
-    //     const selectedComboModel = this.selectedCombo.getModel()
-    //     if (
-    //       selectedComboModel.label === newVal.label &&
-    //       selectedComboModel.labelCfg.position === newVal.labelPosition &&
-    //       selectedComboModel.labelCfg.refX === newVal.labelRefX &&
-    //       selectedComboModel.labelCfg.refY === newVal.labelRefY &&
-    //       selectedComboModel.type === newVal.type
-    //     ) {
-    //       return
-    //     }
-    //     // 实时监听input值的变化，停止输入500ms后执行update，而不是时时update
-    //     clearTimeout(this.selectedComboParamsTimeout)
-    //     this.selectedComboParamsTimeout = setTimeout(() => {
-    //       const selectedComboModel = this.selectedCombo.getModel()
-    //       selectedComboModel.label = newVal.label
-    //       selectedComboModel.labelCfg.position = newVal.labelPosition
-    //         ? newVal.labelPosition
-    //         : 'top'
-    //       selectedComboModel.labelCfg.refX = newVal.labelRefX
-    //         ? newVal.labelRefX
-    //         : 0
-    //       selectedComboModel.labelCfg.refY = newVal.labelRefY
-    //         ? newVal.labelRefY
-    //         : 0
-    //       selectedComboModel.type = newVal.type ? newVal.type : 'circle'
-    //       this.selectedCombo.update(selectedComboModel)
-    //     }, 500)
-    //   }
-    // }
+    selectedComboParams: {
+      deep: true,
+      handler: function(newVal, oldVal) {
+        const selectedComboModel = this.selectedCombo.getModel()
+        if (
+          selectedComboModel.label === newVal.label &&
+          selectedComboModel.labelCfg.position === newVal.labelPosition &&
+          selectedComboModel.labelCfg.refX === newVal.labelRefX &&
+          selectedComboModel.labelCfg.refY === newVal.labelRefY &&
+          selectedComboModel.type === newVal.type
+        ) {
+          return
+        }
+        // 实时监听input值的变化，停止输入500ms后执行update，而不是时时update
+        clearTimeout(this.selectedComboParamsTimeout)
+        this.selectedComboParamsTimeout = setTimeout(() => {
+          const selectedComboModel = this.selectedCombo.getModel()
+          selectedComboModel.label = newVal.label
+          selectedComboModel.labelCfg.position = newVal.labelPosition
+            ? newVal.labelPosition
+            : 'top'
+          selectedComboModel.labelCfg.refX = newVal.labelRefX
+            ? newVal.labelRefX
+            : 0
+          selectedComboModel.labelCfg.refY = newVal.labelRefY
+            ? newVal.labelRefY
+            : 0
+          selectedComboModel.type = newVal.type ? newVal.type : 'circle'
+          this.selectedCombo.update(selectedComboModel)
+        }, 500)
+      }
+    }
   },
   created() {},
   mounted() {
     /* 分别在合适的时候注入vue实例对象 */
-    // ccNode.obj.ccImage.sendThis(this)
-    // ccBehavior.obj.clickEventEdit.sendThis(this)
-    // ccBehavior.obj.dragAddEdge.sendThis(this)
-    // ccBehavior.obj.dragEventEdit.sendThis(this)
-    // ccBehavior.obj.keyupEventEdit.sendThis(this)
+    ccNode.obj.ccImage.sendThis(this)
+    ccBehavior.obj.clickEventEdit.sendThis(this)
+    ccBehavior.obj.dragAddEdge.sendThis(this)
+    ccBehavior.obj.dragEventEdit.sendThis(this)
+    ccBehavior.obj.keyupEventEdit.sendThis(this)
 
     /* 清除历史数据对象 */
     this.clearHistoryData()
@@ -598,17 +470,8 @@ export default {
         ],
         edit: [
           'drag-node',
-          // 'drag-canvas',
-          // 'zoom-canvas',
-          {
-            type: 'zoom-canvas',
-            enableOptimize: true,
-            optimizeZoom: 0.9
-          },
-          {
-            type: 'drag-canvas',
-            enableOptimize: true
-          },
+          'drag-canvas',
+          'zoom-canvas',
           'dbclick-add-children',
           {
             type: 'click-select',
@@ -670,16 +533,18 @@ export default {
     forceLayoutHandler() {
       const graph = this.graph
       if (graph && !graph.destroyed) {
-        // graph.updateLayout({
-        //   type: 'comboForce',
-        //   center: [200, 200], // 可选，默认为图的中心
-        //   linkDistance: 50, // 可选，边长
-        //   nodeStrength: 30, // 可选
-        //   edgeStrength: 0.1, // 可选
-        //   onLayoutEnd: () => {
-        //     this.closeFullScreenLoading()
-        //   }
-        // })
+        this.openFullScreenLoading()
+        graph.updateLayout({
+          type: 'comboForce',
+          center: [200, 200], // 可选，默认为图的中心
+          linkDistance: 50, // 可选，边长
+          preventOverlap: true,
+          nodeStrength: 30, // 可选
+          edgeStrength: 0.1, // 可选
+          onLayoutEnd: () => {
+            this.closeFullScreenLoading()
+          }
+        })
         // graph.updateLayout({
         //   type: 'force',
         //   center: [200, 200],
@@ -690,26 +555,6 @@ export default {
         //     this.closeFullScreenLoading()
         //   }
         // })
-        graph.updateLayout({
-          type: 'comboForce',
-          center: [200, 200], // 可选，默认为图的中心
-          linkDistance: 150, // 可选，边长
-          nodeStrength: -30, // 可选
-          edgeStrength: 0.1, // 可选
-          workerEnabled: true, // 可选，开启 web-worker
-          preventOverlap: true, // 可选，必须配合 nodeSize
-          preventOverlapPdding: 20, // 可选
-          begin: [0, 0], // 可选，
-          nodeSize: 30, // 可选
-          onTick: () => { // 可选
-            console.log('ticking')
-            // this.openFullScreenLoading()
-          },
-          onLayoutEnd: () => { // 可选
-            this.closeFullScreenLoading()
-            console.log('combo force layout done')
-          }
-        })
       }
     },
     /* 设置当前线条的类型，可以在联线的时候做处理 */

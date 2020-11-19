@@ -16,7 +16,7 @@
     "test:ci": "npm run lint && npm run test:unit"
   },
   "dependencies": {
-    "@antv/g6": "^3.8.0",
+    "@antv/g6": "^3.8.5",
     "axios": "0.18.1",
     "core-js": "3.6.5",
     "element-resize-detector": "^1.2.1",

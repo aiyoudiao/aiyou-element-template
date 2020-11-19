@@ -10,13 +10,15 @@ import hoverEventEdit from './hover-event-edit'
 import clickEventEdit from './click-event-edit'
 import dragEventEdit from './drag-event-edit'
 import keyupEventEdit from './keyup-event-edit'
+import dbclickAddChildren from './dbclick-add-children'
 
 const obj = {
   dragAddEdge,
   hoverEventEdit,
   clickEventEdit,
   dragEventEdit,
-  keyupEventEdit
+  keyupEventEdit,
+  dbclickAddChildren
 }
 
 export default {

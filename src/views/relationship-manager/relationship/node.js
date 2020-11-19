@@ -1,206 +1,408 @@
 export default {
-  /* SSL 服务器节点 */
+  /* SSL-服务器-TCP服务 */
   SslVsTcpService: {
     id: 'xx',
-    // x: -95,
-    // y: -50,
-    label: 'SLL 服务器节点',
+    style: {
+      fill: '#ebebad'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: 'SSL-TCP服务',
     labelCfg: {
       position: 'bottom'
     },
-    type: 'cc-image',
-    img: require('@/assets/new-images/SSL.png'),
-    size: [55, 55],
-    width: 48,
-    height: 48,
-    anchorPoints: [
-      [0.5, 0], // top
-      [1, 0.5], // right
-      [0.5, 1], // bottom
-      [0, 0.5] // left
-    ],
-    appState: {
-      alert: false
-    },
-    appConfig: {
-      ip: '',
-      port: '',
-      sysName: ''
-    }
+    // fill: '',
+    type: 'circle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
   },
-  /* Waf 服务器节点 */
+  /* SSL-设备 */
+  SslDevice: {
+    id: 'xx',
+    style: {
+      fill: '#ebebad'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: 'SSL-设备',
+    labelCfg: {
+      position: 'bottom'
+    },
+    type: 'triangle',
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
+  },
+  /* Waf-服务器-TCP服务 */
   WafVsTcpService: {
     id: 'xx',
-    // x: -95,
-    // y: -50,
-    label: 'Waf 服务器节点',
+    style: {
+      fill: '#a3ebc7'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: 'Waf-TCP服务',
     labelCfg: {
       position: 'bottom'
     },
-    type: 'cc-image',
-    img: require('@/assets/new-images/WAF.png'),
-    size: [55, 55],
-    width: 48,
-    height: 48,
-    anchorPoints: [
-      [0.5, 0], // top
-      [1, 0.5], // right
-      [0.5, 1], // bottom
-      [0, 0.5] // left
-    ],
-    appState: {
-      alert: false
-    },
-    appConfig: {
-      ip: '',
-      port: '',
-      sysName: ''
-    }
+    type: 'circle',
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
   },
-  /* Nat 服务器节点 */
-  NatTcpService: {
+  /* WAF-设备 */
+  WafDevice: {
     id: 'xx',
-    // x: -95,
-    // y: -50,
-    label: 'Nat 服务器节点',
+    style: {
+      fill: '#a3ebc7'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: 'WAF-设备',
     labelCfg: {
       position: 'bottom'
     },
-    type: 'cc-image',
-    img: require('@/assets/new-images/防火墙.png'),
-    size: [55, 55],
-    width: 48,
-    height: 48,
-    anchorPoints: [
-      [0.5, 0], // top
-      [1, 0.5], // right
-      [0.5, 1], // bottom
-      [0, 0.5] // left
-    ],
-    appState: {
-      alert: false
-    },
-    appConfig: {
-      ip: '',
-      port: '',
-      sysName: ''
-    }
+    type: 'triangle',
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
   },
-  /* LB 服务器节点 */
+  /* 防火墙-服务器-TCP服务 */
+  FirewallNatTcpService: {
+    id: 'xx',
+    style: {
+      fill: '#ebbaad'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '防火墙-TCP服务',
+    labelCfg: {
+      position: 'bottom'
+    },
+    type: 'circle',
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
+  },
+  /* 防火墙-设备 */
+  FirewallDevice: {
+    id: 'xx',
+    style: {
+      fill: '#ebbaad'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '防火墙-设备',
+    labelCfg: {
+      position: 'bottom'
+    },
+    type: 'triangle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
+  },
+  /* 负载均衡-服务器-TCP服务 */
   LbVsTcpService: {
     id: 'xx',
-    // x: -95,
-    // y: -50,
-    label: 'LB 服务器节点',
+    style: {
+      fill: '#adddeb'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '负载均衡-TCP服务',
     labelCfg: {
       position: 'bottom'
     },
-    type: 'cc-image',
-    img: require('@/assets/new-images/负载均衡.png'),
-    size: [55, 55],
-    width: 48,
-    height: 48,
-    anchorPoints: [
-      [0.5, 0], // top
-      [1, 0.5], // right
-      [0.5, 1], // bottom
-      [0, 0.5] // left
-    ],
-    appState: {
-      alert: false
-    },
-    appConfig: {
-      ip: '',
-      port: '',
-      sysName: ''
-    }
+    type: 'circle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
   },
-  /* 逻辑 服务器节点 */
+  /* 负载均衡-设备 */
+  LbDevice: {
+    id: 'xx',
+    style: {
+      fill: '#adddeb'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '负载均衡-设备',
+    labelCfg: {
+      position: 'bottom'
+    },
+    type: 'triangle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
+  },
+  /* 逻辑服务器-TCP服务 */
   LogicalServerTcpService: {
     id: 'xx',
-    // x: -95,
-    // y: -50,
-    label: '逻辑 服务器节点',
+    style: {
+      fill: '#698b8f'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '逻辑服务器-TCP服务',
     labelCfg: {
       position: 'bottom'
     },
-    type: 'cc-image',
-    img: require('@/assets/new-images/逻辑服务.png'),
-    size: [55, 55],
-    width: 48,
-    height: 48,
-    anchorPoints: [
-      [0.5, 0], // top
-      [1, 0.5], // right
-      [0.5, 1], // bottom
-      [0, 0.5] // left
-    ],
-    appState: {
-      alert: false
-    },
-    appConfig: {
-      ip: '',
-      port: '',
-      sysName: ''
-    }
+    type: 'circle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
   },
-  /* 应用系统 节点 */
+  /* 逻辑服务器-设备 */
+  LogicalServer: {
+    id: 'xx',
+    style: {
+      fill: '#698b8f'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '逻辑服务器-设备',
+    labelCfg: {
+      position: 'bottom'
+    },
+    type: 'triangle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
+  },
+  /* 应用系统 */
   ApplicationSystem: {
     id: 'xx',
-    // x: -95,
-    // y: -50,
-    label: '应用系统 节点',
+    style: {
+      fill: '#eb3e55'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '应用系统',
     labelCfg: {
       position: 'bottom'
     },
-    type: 'cc-image',
-    img: require('@/assets/new-images/应用系统.png'),
-    size: [55, 55],
-    width: 48,
-    height: 48,
-    anchorPoints: [
-      [0.5, 0], // top
-      [1, 0.5], // right
-      [0.5, 1], // bottom
-      [0, 0.5] // left
-    ],
-    appState: {
-      alert: false
-    },
-    appConfig: {
-      ip: '',
-      port: '',
-      sysName: ''
-    }
+    type: 'circle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
   },
-  /* 域名 节点 */
+  /* 域名 */
   DomainName: {
     id: 'xx',
-    // x: -95,
-    // y: -50,
-    label: '域名 节点',
+    style: {
+      fill: '#e76a23'
+      // stroke: '#000',
+      // lineWidth: 2
+    },
+    // x: 200,
+    // y: 200,
+    label: '域名',
     labelCfg: {
       position: 'bottom'
     },
-    type: 'cc-image',
-    img: require('@/assets/new-images/域名.png'),
-    size: [55, 55],
-    width: 48,
-    height: 48,
-    anchorPoints: [
-      [0.5, 0], // top
-      [1, 0.5], // right
-      [0.5, 1], // bottom
-      [0, 0.5] // left
-    ],
-    appState: {
-      alert: false
-    },
-    appConfig: {
-      ip: '',
-      port: '',
-      sysName: ''
-    }
+    type: 'circle',
+
+    size: [20, 20],
+    width: 20,
+    height: 20
+    // anchorPoints: [
+    //   [0.5, 0], // top
+    //   [1, 0.5], // right
+    //   [0.5, 1], // bottom
+    //   [0, 0.5] // left
+    // ],
+    // appState: {
+    //   alert: false
+    // },
+    // appConfig: {
+    //   ip: '',
+    //   port: '',
+    //   sysName: ''
+    // }
   }
 
 }
